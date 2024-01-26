@@ -1,6 +1,6 @@
-#include <stdio.h>
 #include <cs50.h>
 #include <math.h>
+#include <stdio.h>
 
 int main(void)
 {
@@ -12,6 +12,7 @@ int main(void)
         float change = get_float("Enter how much change you need to get: ");
 
         int changeInInt = change * 100;
+        changeInInt = round(changeInInt);
 
         int quart = 25;
         int dime = 10;
@@ -24,54 +25,55 @@ int main(void)
         int howMuchNickel = 0;
         int howMuchPenny = 0;
 
-        if(changeInInt > 0)
+        if (changeInInt >= 0)
         {
             inputRight = false;
-            if(changeInInt >= quart)
+            if (changeInInt >= quart)
             {
                 do
                 {
                     changeInInt = changeInInt - quart;
                     howMuchSteps++;
                     howMuchQuart++;
-                    changeInInt = ceil(changeInInt);
-                } while(changeInInt >= quart);
+                }
+                while (changeInInt >= quart);
             }
 
-            if(changeInInt >= dime)
+            if (changeInInt >= dime)
             {
                 do
                 {
                     changeInInt = changeInInt - dime;
-                    howMuchSteps ++;
+                    howMuchSteps++;
                     howMuchDime++;
-                    changeInInt = ceil(changeInInt);
-                } while(changeInInt >= dime);
+                }
+                while (changeInInt >= dime);
             }
 
-            if(changeInInt >= nickel)
+            if (changeInInt >= nickel)
             {
                 do
                 {
                     changeInInt = changeInInt - nickel;
                     howMuchSteps++;
                     howMuchNickel++;
-                    changeInInt = ceil(changeInInt);
-                } while(changeInInt >= nickel);
+                }
+                while (changeInInt >= nickel);
             }
 
-            if(changeInInt >= penny)
+            if (changeInInt >= penny)
             {
                 do
                 {
                     changeInInt = changeInInt - penny;
                     howMuchSteps++;
                     howMuchPenny++;
-                    changeInInt = ceil(changeInInt);
-                } while(changeInInt >= penny);
+                }
+                while (changeInInt >= penny);
             }
 
-            printf("\nYou need to make %i steps to get your change.\n\nYou get: %i quarts, %i dimes, %i nickels, %i pennys. \n", howMuchSteps, howMuchQuart, howMuchDime, howMuchNickel, howMuchPenny);
+            printf("\nYou need to make %i steps to get your change.\n\nYou get: %i quarts, %i dimes, %i nickels, %i penny. \n",
+                   howMuchSteps, howMuchQuart, howMuchDime, howMuchNickel, howMuchPenny);
             printf("===============================================================\n");
 
             bool tryAgainRight = true;
@@ -80,18 +82,20 @@ int main(void)
             {
                 char tryAgain = get_char("Do you want try again? Enter Y or N:  ");
 
-                if(tryAgain == 'Y')
+                if (tryAgain == 'Y')
                 {
                     inputRight = true;
                     tryAgainRight = false;
                 }
-                if(tryAgain == 'N')
+                if (tryAgain == 'N')
                 {
                     printf("\nGoodbye!\n");
                     printf("===============================================================\n");
                     tryAgainRight = false;
                 }
-            } while(tryAgainRight);
+            }
+            while (tryAgainRight);
         }
-    } while(inputRight);
+    }
+    while (inputRight);
 }
