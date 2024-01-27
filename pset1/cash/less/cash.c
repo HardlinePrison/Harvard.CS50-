@@ -9,10 +9,11 @@ int main(void)
     do
     {
         printf("===============================================================\n");
-        float change = get_float("Enter how much change you need to get: ");
+        // I decide use get_double because if I use get_float and user input 2.34 programm can not count steps correctly because of
+        // float type
+        double change = get_double("Enter how much change you need to get: ");
 
-        int changeInInt = change * 100;
-        changeInInt = round(changeInInt);
+        int changeInInt = (change * 100);
 
         int quart = 25;
         int dime = 10;
@@ -28,6 +29,7 @@ int main(void)
         if (changeInInt >= 0)
         {
             inputRight = false;
+
             if (changeInInt >= quart)
             {
                 do
@@ -82,12 +84,12 @@ int main(void)
             {
                 char tryAgain = get_char("Do you want try again? Enter Y or N:  ");
 
-                if (tryAgain == 'Y')
+                if (tryAgain == 'Y' || tryAgain == 'y')
                 {
                     inputRight = true;
                     tryAgainRight = false;
                 }
-                if (tryAgain == 'N')
+                if (tryAgain == 'N' || tryAgain == 'n')
                 {
                     printf("\nGoodbye!\n");
                     printf("===============================================================\n");
