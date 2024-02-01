@@ -24,36 +24,71 @@ int main(void)
         int howMuchNickel = 0;
         int howMuchPenny = 0;
 
+        int mod = 0;
+        int counter = 0;
+
         if (changeInInt >= 0)
         {
             inputRight = false;
 
-            while (changeInInt % quart < quart && changeInInt >= quart)
+            if (changeInInt >= quart)
             {
-                changeInInt = changeInInt - quart;
-                howMuchSteps++;
-                howMuchQuart++;
+                mod = changeInInt % quart;
+                if (mod >= 0)
+                {
+                    counter = changeInInt / quart;
+                    for (int i = 1; i <= counter; i++)
+                    {
+                        changeInInt = changeInInt - quart;
+                        howMuchSteps++;
+                        howMuchQuart++;
+                    }
+                }
             }
 
-            while (changeInInt % dime < dime && changeInInt >= dime)
+            if (changeInInt >= dime)
             {
-                changeInInt = changeInInt - dime;
-                howMuchSteps++;
-                howMuchDime++;
+                mod = changeInInt % dime;
+                if (mod >= 0)
+                {
+                    counter = changeInInt / dime;
+                    for (int i = 1; i <= counter; i++)
+                    {
+                        changeInInt = changeInInt - dime;
+                        howMuchSteps++;
+                        howMuchDime++;
+                    }
+                }
             }
 
-            while (changeInInt % nickel < nickel && changeInInt >= nickel)
+            if (changeInInt >= nickel)
             {
-                changeInInt = changeInInt - nickel;
-                howMuchSteps++;
-                howMuchNickel++;
+                mod = changeInInt % nickel;
+                if (mod >= 0)
+                {
+                    counter = changeInInt / nickel;
+                    for (int i = 1; i <= counter; i++)
+                    {
+                        changeInInt = changeInInt - nickel;
+                        howMuchSteps++;
+                        howMuchNickel++;
+                    }
+                }
             }
 
-            while (changeInInt % penny <= penny && changeInInt >= penny)
+            if (changeInInt >= penny)
             {
-                changeInInt = changeInInt - penny;
-                howMuchSteps++;
-                howMuchPenny++;
+                mod = changeInInt % penny;
+                if (mod >= 0)
+                {
+                    counter = changeInInt / penny;
+                    for (int i = 1; i <= counter; i++)
+                    {
+                        changeInInt = changeInInt - penny;
+                        howMuchSteps++;
+                        howMuchPenny++;
+                    }
+                }
             }
 
             printf("\nYou need to make %i steps to get your change.\n\nYou get: %i quarts, %i dimes, %i nickels, %i penny. \n",
@@ -83,4 +118,3 @@ int main(void)
     }
     while (inputRight);
 }
-
