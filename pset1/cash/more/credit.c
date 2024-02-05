@@ -7,7 +7,7 @@ int main(void)
     bool inputRight = true;
     do
     {
-        printf("===============================================================\n");
+        // printf("===============================================================\n");
         long num = get_long_long("Input your card number: ");
 
         long num2 = num;
@@ -34,7 +34,7 @@ int main(void)
             }
 
             // is AMEX valid?
-            if (number == 15 && numbers[15] == 3)
+            if (number == 15 && ((numbers[15] == 3 && (numbers[14] == 4 || numbers[14] == 7))))
             {
                 checked = true;
                 long summAMEX = 0;
@@ -68,7 +68,7 @@ int main(void)
             }
 
             // is MASTER valid?
-            if (number == 16 && numbers[16] == 5)
+            if (number == 16 && numbers[16] == 5 && (numbers[15] >= 1 && numbers[15] <= 5))
             {
                 checked = true;
                 long summMASTER = 0;
@@ -93,7 +93,7 @@ int main(void)
 
                 if (summMASTER % 10 == 0)
                 {
-                    printf("\nMASTER\n");
+                    printf("\nMASTERCARD\n");
                 }
                 else
                 {
@@ -136,9 +136,10 @@ int main(void)
             }
         }
 
-        if(checked == false)
+        if (checked == false)
         {
             printf("\nINVALID\n");
+            inputRight = false;
         }
 
         bool tryAgainRight = true;
@@ -165,4 +166,3 @@ int main(void)
 
     return 0;
 }
-
