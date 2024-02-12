@@ -4,6 +4,14 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define LETTERS_MAX 26
+#define LOWER_LETTER_MIN 'a'
+#define LOWER_LETTER_MAX 'z'
+#define UPPER_LETTER_MIN 'A'
+#define UPPER_LETTER_MAX 'Z'
+
+int changeLetter(int letter, int k, int checkRemainder);
+
 int main(int argc, string argv[])
 {
 
@@ -23,43 +31,11 @@ int main(int argc, string argv[])
         string input = get_string("Enter text you want encrypt: ");
         for (int j = 0, len = strlen(input); j <= len; j++)
         {
-            int checkMod = (input[j] + key) % 'z';
+            int checkMod = (input[j] + key) % LOWER_LETTER_MAX;
 
             if (isalpha(input[j]))
             {
-                if (islower(input[j]))
-                {
-                    if ((input[j] + key) > 'z')
-                    {
-                        do
-                        {
-                            checkMod = checkMod % 26;
-                            input[j] = 'a' + checkMod - 1;
-                        }
-                        while (checkMod > 26);
-                    }
-                    else
-                    {
-                        input[j] += key;
-                    }
-                }
-
-                if (isupper(input[j]))
-                {
-                    if ((input[j] + key) > 'Z')
-                    {
-                        do
-                        {
-                            checkMod = checkMod % 26;
-                            input[j] = 'a' + checkMod - 2;
-                        }
-                        while (checkMod > 26);
-                    }
-                    else
-                    {
-                        input[j] += key;
-                    }
-                }
+                input[j] = changeLetter(input[j], key, checkMod);
             }
         }
         printf("ciphertext: %s\n", input);
@@ -71,4 +47,45 @@ int main(int argc, string argv[])
     }
 
     return 0;
+}
+
+int changeLetter(int letter, int k, int checkRemainder)
+{
+    int changedLetter = 0;
+
+    if (islower(letter))
+    {
+        if ((letter + k) > LOWER_LETTER_MAX)
+        {
+            do
+            {
+                checkRemainder = checkRemainder % LETTERS_MAX;
+                changedLetter = LOWER_LETTER_MIN + checkRemainder - 1;
+            }
+            while (checkRemainder > LETTERS_MAX);
+        }
+        else
+        {
+            changedLetter = letter += k;
+        }
+    }
+
+    if (isupper(letter))
+    {
+        if ((letter + k) > UPPER_LETTER_MAX)
+        {
+            do
+            {
+                checkRemainder = checkRemainder % LETTERS_MAX;
+                changedLetter = UPPER_LETTER_MIN + checkRemainder - 1;
+            }
+            while (checkRemainder > LETTERS_MAX);
+        }
+        else
+        {
+            changedLetter = letter += k;
+        }
+    }
+
+    return changedLetter;
 }
