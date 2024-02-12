@@ -10,7 +10,7 @@
 #define UPPER_LETTER_MIN 'A'
 #define UPPER_LETTER_MAX 'Z'
 
-int changeLetter(int letter, int k, int checkRemainder);
+int changeLetter(int letter, int k);
 
 int main(int argc, string argv[])
 {
@@ -31,11 +31,9 @@ int main(int argc, string argv[])
         string input = get_string("Enter text you want encrypt: ");
         for (int j = 0, len = strlen(input); j <= len; j++)
         {
-            int checkMod = (input[j] + key) % LOWER_LETTER_MAX;
-
             if (isalpha(input[j]))
             {
-                input[j] = changeLetter(input[j], key, checkMod);
+                input[j] = changeLetter(input[j], key);
             }
         }
         printf("ciphertext: %s\n", input);
@@ -49,20 +47,22 @@ int main(int argc, string argv[])
     return 0;
 }
 
-int changeLetter(int letter, int k, int checkRemainder)
+int changeLetter(int letter, int k)
 {
     int changedLetter = 0;
 
     if (islower(letter))
     {
+        int checkModLower = (letter + k) % LOWER_LETTER_MAX;
+
         if ((letter + k) > LOWER_LETTER_MAX)
         {
             do
             {
-                checkRemainder = checkRemainder % LETTERS_MAX;
-                changedLetter = LOWER_LETTER_MIN + checkRemainder - 1;
+                checkModLower = checkModLower % LETTERS_MAX;
+                changedLetter = LOWER_LETTER_MIN + checkModLower - 1;
             }
-            while (checkRemainder > LETTERS_MAX);
+            while (checkModLower > LETTERS_MAX);
         }
         else
         {
@@ -72,14 +72,16 @@ int changeLetter(int letter, int k, int checkRemainder)
 
     if (isupper(letter))
     {
+        int checkModUpper = (letter + k) % UPPER_LETTER_MAX;
+
         if ((letter + k) > UPPER_LETTER_MAX)
         {
             do
             {
-                checkRemainder = checkRemainder % LETTERS_MAX;
-                changedLetter = UPPER_LETTER_MIN + checkRemainder - 1;
+                checkModUpper = checkModUpper % LETTERS_MAX;
+                changedLetter = UPPER_LETTER_MIN + checkModUpper - 1;
             }
-            while (checkRemainder > LETTERS_MAX);
+            while (checkModUpper > LETTERS_MAX);
         }
         else
         {
